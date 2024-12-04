@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nouvelle faculte
+{% endblock %}
+
+{% block body %}
+	<h1>Creer une nouvelle faculte</h1>
+
+	{{ include('faculte/_form.html.twig') }}
+
+	<a href="{{ path('app_faculte_index') }}">Retour a la liste</a>
+{% endblock %}

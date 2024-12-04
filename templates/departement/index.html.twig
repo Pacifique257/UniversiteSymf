@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Departement
+{% endblock %}
+
+{% block body %}
+	<h1>Departement index</h1>
+
+	<div class="container mt-5">
+		<table id="myTable" class="table table-striped">
+		<thead>
+			<tr>
+				<th>Id</th>
+				<th>Nom du departement</th>
+				<th>Code du departement</th>
+				<th>actions</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for departement in departements %}
+				<tr>
+					<td>{{ departement.id }}</td>
+					<td>{{ departement.nomd }}</td>
+					<td>{{ departement.coded }}</td>
+					<td>
+						<a href="{{ path('app_departement_show', {'id': departement.id}) }}">
+							<button class="btn btn-primary">
+								<i class="fas fa-eye"></i>
+							</button>
+						</a>
+						<a href="{{ path('app_departement_edit', {'id': departement.id}) }}">
+							<button type="button" class="btn btn-primary">
+								<i class="fas fa-edit"></i>
+							</button>
+						</a>
+					</td>
+				</tr>
+			{% else %}
+				<tr>
+					<td colspan="4">no records found</td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+	</div>
+
+	<a href="{{ path('app_departement_new') }}">
+		<h1>
+			<button class="btn btn-primary">
+				<i class="fas fa-plus"></i>
+			</button>
+		</a>
+	{% endblock %}

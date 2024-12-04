@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Classe index
+{% endblock %}
+
+{% block body %}
+	<h1>Classes</h1>
+
+	<div class="container mt-5">
+		<table id="myTable" class="table table-striped">
+			<thead>
+				<tr>
+					<th>Id</th>
+					<th>Niveau</th>
+					<th>actions</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for classe in classes %}
+					<tr>
+						<td>{{ classe.id }}</td>
+						<td>{{ classe.niveau }}</td>
+						<td>
+							<a href="{{ path('app_classe_show', {'id': classe.id}) }}">
+								<button class="btn btn-primary">
+									<i class="fas fa-eye"></i>
+								</button>
+							</a>
+							<a href="{{ path('app_classe_edit', {'id': classe.id}) }}">
+								<button type="button" class="btn btn-primary">
+									<i class="fas fa-edit"></i>
+								</button>
+							</a>
+						</td>
+					</tr>
+				{% else %}
+					<tr>
+						<td colspan="3">no records found</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+
+	<a href="{{ path('app_classe_new') }}">
+		<h1>
+			<button class="btn btn-primary">
+				<i class="fas fa-plus"></i>
+			</button>
+		</a>
+	{% endblock %}

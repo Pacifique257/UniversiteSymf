@@ -1,0 +1,92 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Etudiants
+{% endblock %}
+
+{% block body %}
+<h1>Etudiant index</h1>
+
+<div class="container mt-5">
+    <table id="myTable" class="table table-striped">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Matricule</th>
+                <th>Nom</th>
+                <th>Prenom</th>
+                <th>Date de naissance</th>
+                <th>Genre</th>
+                <th>Noteexetat</th>
+                <th>Niveau</th>
+                <th>Departement</th>
+                <th>Faculte</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for etudiant in etudiants %}
+                <tr>
+                    <td>{{ etudiant.id }}</td>
+                    <td>{{ etudiant.matricule }}</td>
+                    <td>{{ etudiant.nom }}</td>
+                    <td>{{ etudiant.prenom }}</td>
+                    <td>{{ etudiant.ddn ? etudiant.ddn|date('m-d-Y') : '' }}</td>
+                    <td>{{ etudiant.genre }}</td>
+                    <td>{{ etudiant.noteexetat }}</td>
+                    <td>
+                        {% set niveaux = [] %}
+                        {% for classe in etudiant.classes %}
+                            {% if classe.niveau not in niveaux %}
+                                {% set niveaux = niveaux|merge([classe.niveau]) %}
+                            {% endif %}
+                        {% endfor %}
+                        {{ niveaux|join(', ') }}
+                    </td>
+                    <td>
+                        {% set departements = [] %}
+                        {% for classe in etudiant.classes %}
+                            {% if classe.departement.nomd not in departements %}
+                                {% set departements = departements|merge([classe.departement.nomd]) %}
+                            {% endif %}
+                        {% endfor %}
+                        {{ departements|join(', ') }}
+                    </td>
+                    <td>
+                        {% set facultes = [] %}
+                        {% for classe in etudiant.classes %}
+                            {% if classe.departement.faculte.nomf not in facultes %}
+                                {% set facultes = facultes|merge([classe.departement.faculte.nomf]) %}
+                            {% endif %}
+                        {% endfor %}
+                        {{ facultes|join(', ') }}
+                    </td>
+                    <td>
+                        <a href="{{ path('app_etudiant_show', {'id': etudiant.id}) }}">
+                            <button class="btn btn-primary">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </a>
+                        <a href="{{ path('app_etudiant_edit', {'id': etudiant.id}) }}">
+                            <button type="button" class="btn btn-primary">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                        </a>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="11">No records found</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+	</div>
+	<a href="{{ path('app_etudiant_new') }}">
+		<h1>
+			<button class="btn btn-primary">
+				<i class="fas fa-plus"></i>
+			</button>
+		</a>
+	{% endblock %}

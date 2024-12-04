@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Etudiant{% endblock %}
+
+{% block body %}
+    <h1>Etudiant</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ etudiant.id }}</td>
+            </tr>
+            <tr>
+                <th>Matricule</th>
+                <td>{{ etudiant.matricule }}</td>
+            </tr>
+            <tr>
+                <th>Nom</th>
+                <td>{{ etudiant.nom }}</td>
+            </tr>
+            <tr>
+                <th>Prenom</th>
+                <td>{{ etudiant.prenom }}</td>
+            </tr>
+            <tr>
+                <th>Ddn</th>
+                <td>{{ etudiant.ddn ? etudiant.ddn|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Genre</th>
+                <td>{{ etudiant.genre }}</td>
+            </tr>
+            <tr>
+                <th>Noteexetat</th>
+                <td>{{ etudiant.noteexetat }}</td>
+            </tr>
+           
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_etudiant_index') }}"class="btn btn-primary">
+    <i class="fas fa-arrow-left"></i></a>
+
+    <a href="{{ path('app_etudiant_edit', {'id': etudiant.id}) }}"><button type="button" class="btn btn-primary">
+    <i class="fas fa-edit"></i> </a>
+
+    {{ include('etudiant/_delete_form.html.twig') }}
+{% endblock %}

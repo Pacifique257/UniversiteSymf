@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Faculte index
+{% endblock %}
+
+{% block body %}
+	<h1>Facultes</h1>
+	<div class="container mt-5">
+		<table id="myTable" class="table table-striped">
+			<thead>
+				<tr>
+					<th>Id</th>
+					<th>Nom de la faculte</th>
+					<th>Code de la faculte</th>
+					<th>actions</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for faculte in facultes %}
+					<tr>
+						<td>{{ faculte.id }}</td>
+						<td>{{ faculte.nomf }}</td>
+						<td>{{ faculte.coded }}</td>
+						<td>
+
+							<a href="{{ path('app_faculte_show', {'id': faculte.id}) }}">
+								<button class="btn btn-primary">
+									<i class="fas fa-eye"></i>
+								</button>
+							</a>
+							<a href="{{ path('app_faculte_edit', {'id': faculte.id}) }}">
+								<button type="button" class="btn btn-success">
+									<i class="fas fa-edit"></i>
+								</button>
+							</a>
+						</td>
+					</tr>
+				{% else %}
+					<tr>
+						<td colspan="4">no records found</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+
+	<a href="{{ path('app_faculte_new') }}">
+		<h1>
+			<button class="btn btn-primary">
+				<i class="fas fa-plus"></i>
+			</button>
+		</a>
+	{% endblock %}
